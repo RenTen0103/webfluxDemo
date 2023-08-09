@@ -1,6 +1,6 @@
 package com.example.webfluxdemo.repository
 
-import com.example.webfluxdemo.dao.Account
+import com.example.webfluxdemo.entity.dao.Account
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import reactor.core.publisher.Mono
 

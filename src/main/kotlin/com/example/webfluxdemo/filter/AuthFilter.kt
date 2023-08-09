@@ -1,6 +1,6 @@
 package com.example.webfluxdemo.filter
 
-import com.example.webfluxdemo.domain.ResponseResult
+import com.example.webfluxdemo.entity.domain.ResponseResult
 import com.example.webfluxdemo.utils.JwtUtils
 import io.jsonwebtoken.security.SignatureException
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -14,19 +14,17 @@ object AuthFilter {
             } else null
         }
 
-
         return if (token == null) {
-            ResponseResult.error(401, "认证失败")
+            ResponseResult.error(401, "认证失败",102)
         } else {
             try {
-                val userid = JwtUtils.parseJwt(JwtUtils.prefix(token))
-                request.exchange().attributes["userid"] = userid
+                val account = JwtUtils.parseJwt(JwtUtils.prefix(token))
+                request.exchange().attributes["account"] = account
                 next(request)
             } catch (e: SignatureException) {
                 ResponseResult.error(401, "认证失败", 101)
             }
         }
-
     }
-
 }
+
